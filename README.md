@@ -50,6 +50,38 @@ The modules build on each other in order.
 | File / Folder | Description |
 |---|---|
 | [**assets**](assets/) | Local process diagrams, Design Thinking references, and attributed excerpts from the official Anthropic documentation. |
+| [**.claude/skills/design-thinking**](.claude/skills/design-thinking/SKILL.md) | The Design Thinking Skill built in module 05. Claude Code loads it automatically when a request matches its scope; the group can also invoke it directly. |
+| [**.claude/agents**](.claude/agents/) | Two read-only review subagents built in module 05: [`evidence-auditor`](.claude/agents/evidence-auditor.md) and [`prototype-reviewer`](.claude/agents/prototype-reviewer.md). They report findings only — never edits, never a substitute for real user evidence. |
+
+## The Skill and Subagents
+
+Once module 05 is complete, this repository's `.claude/` folder holds a
+working Skill and two subagents built from modules 01-04. The session
+handout in module 06 is where the group actually drives them through a
+full Design Thinking cycle.
+
+- The **design-thinking Skill** encodes the method's non-negotiable rules —
+  tagging every claim as evidence, interpretation, assumption, or an
+  unverified AI draft; never fabricating an answer to a missing-evidence
+  gap; and stopping for approval before creating or restructuring a
+  deliverable, before choosing a direction, and before touching the
+  prototype. Claude Code loads it automatically based on the group's
+  request. It produces `discovery.md`, `decision-log.md`, the prototype,
+  `test-notes.md`, and `ai-collaboration-log.md`.
+- The **evidence-auditor** subagent is read-only. It checks `discovery.md`
+  for unsupported claims, missing provenance tags, and mixed certainty
+  levels — run it after updating the evidence log, persona, journey map,
+  POV, or HMW question, before the group reviews the work.
+- The **prototype-reviewer** subagent is read-only. It checks the built
+  prototype against the approved learning question for unclear flows,
+  accessibility issues, and test risks — run it after building or editing
+  the prototype, before a usability test.
+
+Both subagents report findings only; the group decides what to accept,
+edit, or reject, recorded in `ai-collaboration-log.md`. See
+[**05 - Claude Code Skills and Subagents**](05-claude-code-skills-and-subagents.md)
+for how these were built and
+[**06 - Session Handout**](06-session-handout.md) for how to run them.
 
 ## Getting Started
 
@@ -62,7 +94,8 @@ No Python environment is required for this repository.
 3. Read the lesson files in numerical order.
 4. Use the session handout for the practical workshop.
 5. Use Claude Code through your chosen interface when the handout introduces
-   the agent workflow.
+   the agent workflow — the design-thinking Skill and its two review
+   subagents (`.claude/`) activate at that point.
 6. Keep a clear separation between direct evidence, interpretation, and open
    questions in every deliverable.
 
